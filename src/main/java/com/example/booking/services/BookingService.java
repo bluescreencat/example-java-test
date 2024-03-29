@@ -14,10 +14,10 @@ import java.util.List;
 public class BookingService {
 
     final double CUSTOMER_AMOUNT_PER_TABLE = 4.0;
-    public int getMaximumTableAmount(CalculateTableDTO calculateTableDTO) {
+    public int getMinimumTableAmount(CalculateTableDTO calculateTableDTO) {
         List<Timeline> timelines = getTimelines(calculateTableDTO);
-        int maxTable = getMaximumTableAmount(timelines);
-        return maxTable;
+        int minTableAmount = getMaximumOverlapTableAmount(timelines);
+        return minTableAmount;
     }
 
     private List<Timeline> getTimelines(CalculateTableDTO calculateTableDTO) {
@@ -43,22 +43,22 @@ public class BookingService {
         return timelines;
     }
 
-    private int getMaximumTableAmount(List<Timeline> timelines) {
-        int maxTableAmount = 0;
+    private int getMaximumOverlapTableAmount(List<Timeline> timelines) {
+        int maxOverlapTableAmount = 0;
         for (int i = 0; i < timelines.size(); i++) {
             Timeline currentTimeline = timelines.get(i);
-            int tableAmount = currentTimeline.getAmount();
+            int tableOverlapAmount = currentTimeline.getAmount();
             for (int j = 0; j <timelines.size(); j++) {
                 if (i == j) {
                     continue;
                 }
                 Timeline targetTimeline = timelines.get(j);
                 if (currentTimeline.isOverlap(targetTimeline)) {
-                    tableAmount += targetTimeline.getAmount();
+                    tableOverlapAmount += targetTimeline.getAmount();
                 }
             }
-            maxTableAmount = Math.max(maxTableAmount, tableAmount);
+            maxOverlapTableAmount = Math.max(maxOverlapTableAmount, tableOverlapAmount);
         }
-        return maxTableAmount;
+        return maxOverlapTableAmount;
     }
 }

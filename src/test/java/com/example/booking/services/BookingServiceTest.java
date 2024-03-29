@@ -33,13 +33,13 @@ public class BookingServiceTest {
         CalculateTableDTO booking = new CalculateTableDTO(defaultBookingStartDate, new ArrayList<ReservedTableInfoDTO>(){{
             add(new ReservedTableInfoDTO(defaultBookerName, defaultTel, "09:30", "10:30", 80));
         }});
-        int tableAmount = bookingService.getMaximumTableAmount(booking);
+        int tableAmount = bookingService.getMinimumTableAmount(booking);
         assertThat(tableAmount).isEqualTo(20);
 
         CalculateTableDTO booking2 = new CalculateTableDTO(defaultBookingStartDate, new ArrayList<ReservedTableInfoDTO>(){{
             add(new ReservedTableInfoDTO(defaultBookerName, defaultTel, "09:30", "10:30", 30));
         }});
-        int tableAmount2 = bookingService.getMaximumTableAmount(booking2);
+        int tableAmount2 = bookingService.getMinimumTableAmount(booking2);
         assertThat(tableAmount2).isEqualTo(8);
     }
 
@@ -53,7 +53,7 @@ public class BookingServiceTest {
             add(new ReservedTableInfoDTO(defaultBookerName, defaultTel, "09:30", "10:30", 1));
             add(new ReservedTableInfoDTO(defaultBookerName, defaultTel, "09:20", "10:40", 1));
         }});
-        int tableAmount = bookingService.getMaximumTableAmount(booking);
+        int tableAmount = bookingService.getMinimumTableAmount(booking);
         assertThat(tableAmount).isEqualTo(6);
     }
 
@@ -69,7 +69,7 @@ public class BookingServiceTest {
             add(new ReservedTableInfoDTO(defaultBookerName, defaultTel, "14:30", "15:30", 100));
             add(new ReservedTableInfoDTO(defaultBookerName, defaultTel, "13:20", "14:20", 110));
         }});
-        int tableAmount = bookingService.getMaximumTableAmount(booking);
+        int tableAmount = bookingService.getMinimumTableAmount(booking);
         assertThat(tableAmount).isEqualTo(76);
     }
 }

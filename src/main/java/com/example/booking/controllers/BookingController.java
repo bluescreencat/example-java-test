@@ -18,6 +18,6 @@ public class BookingController {
 
     @PostMapping("/calculate-table")
     public ResponseEntity<Integer> calculateTable(@Valid @RequestBody CalculateTableDTO body) {
-        return new ResponseEntity<>(bookingService.getMaximumTableAmount(body), HttpStatus.OK);
+        return new ResponseEntity<>(bookingService.getMinimumTableAmount(body), HttpStatus.OK);
     }
 }
